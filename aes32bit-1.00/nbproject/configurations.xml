@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="79">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df name="aes32bit-1.00" root=".">
+      <df name="autom4te.cache">
+      </df>
+      <df name="OpenVMS">
+      </df>
+      <df name="src">
+        <df name="getopt">
+          <in>getopt.c</in>
+          <in>getopt.h</in>
+        </df>
+        <df name="portable">
+          <in>pstdint.h</in>
+        </df>
+        <in>aes.cpp</in>
+        <in>aes.h</in>
+        <in>main.cpp</in>
+        <in>version.cpp</in>
+        <in>version.h</in>
+      </df>
+      <df name="tests">
+        <in>AesAlgorithmTest.cpp</in>
+        <in>AesAlgorithmTest.h</in>
+        <in>AesAlgorithmTestRunner.cpp</in>
+        <in>AesAtomicMethodTest.cpp</in>
+        <in>AesAtomicMethodTest.h</in>
+        <in>AesAtomicMethodTestRunner.cpp</in>
+        <in>AesKeyConversionTest.cpp</in>
+        <in>AesKeyConversionTest.h</in>
+        <in>AesKeyConversionTestRunner.cpp</in>
+        <in>kat.cpp</in>
+      </df>
+      <df name="Visual_Studio">
+      </df>
+      <df name="Watcom">
+      </df>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+      <itemPath>configure</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+          <cTool>
+            <incDir>
+              <pElem>src/getopt</pElem>
+            </incDir>
+          </cTool>
+        </makeTool>
+      </makefileType>
+      <folder path="aes32bit-1.00/src">
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="aes32bit-1.00/tests">
+        <ccTool>
+          <incDir>
+            <pElem>tests</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+    </conf>
+  </confs>
+</configurationDescriptor>

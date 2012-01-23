@@ -1,0 +1,113 @@
+PREREQUISITS
+============
+You will need the following to build this 32-bit implementation of AES and its
+sample program:
+
+- A C++ compiler. The following will do their job:
+  g++ 3.2 and later or g++ 4.x
+  HP C++ 7.1
+  IBM XL C++
+  OpenWatcom C++
+  Visual Studio 2008 or 2010
+- Optional: CppUnit 1.12.0 or later for AES Known Answer Test (KAT).
+
+BUILD
+=====
+This distribution uses GNU autotools to provide an easy to use configure and
+build process on POSIX/Unix compatible environments such as Unix derivates,
+Linux and Unix like runtime environments such as z/OS UNIX System Services and
+Cygwin. Additionally there are build scripts for Windows in conjunction with
+Visual Studio 2008 and 2010, OS/2 and eComStation with OpenWatcom and OpenVMS
+with HP C++.
+
+Information about successful builds including some hints you will find in
+the file COMPATIBILITY.
+
+A) Build on Unix
+----------------
+With CppUnit installed simply invoke
+./configure
+from Shell. configure will search for CppUnit in standard locations.
+
+If configure does not find CppUnit you will have to specify the location of
+CppUnit:
+./configure --with-cppunit-prefix=/where/to/find
+where the path /where/to/find points to the location of CppUnit.
+configure will search for CppUnit's header files in /where/to/find/include and
+for CppUnit's libraries in /where/to/find/lib.
+
+If you do not want to run the AES KAT and the other CppUnit tests or if you
+do not have CppUnit installed you can invoke configure as follows:
+./configure --without-cppunit
+This will tell configure that you do not have CppUnit installed.
+
+After configure simply type
+make
+to build the aes32bit executable with the sample program.
+
+After a successfull build you will find aes32bit in this location:
+./src/aes32bit
+
+If you configured with CppUnit you can afterwards build the CppUnit test
+including AES KAT:
+make check
+
+After all you will find these test executables in the tests directory:
+./tests/aes32kat       => AES Known Answer Test (KAT)
+./tests/aes32keytest   => key conversion test
+./tests/aes32metest    => tests the atomic AES methods of class AesEncryption
+
+B) Build on Windows with Visual Studio
+--------------------------------------
+To build the AES sample program and the corresponding CppUnit test open a 
+"Visual Studio Command Prompt". In there change the working directory to the
+directory Visual_Studio in your aes32bit directory, e.g.
+cd c:\aes32bit-1.00\Visual_Studio
+
+After that execute the following command to start the build:
+build CPPUNIT=D:\Where\To\Find
+
+CPPUNIT specifies the path where CppUnit is installed (D:\Where\To\Find).
+The build process expects CppUnit's header files in D:\Where\To\Find\include
+and the appropriate library files in D:\Where\To\Find\lib.
+
+Note: This build process uses the binary distribution of CppUnit from
+http://www.cogito-ergo-sum.org/ with cppunit32.lib for 32-bit Windows and
+cppunit64.lib for 64-bit Windows. If you want to use another binary
+distribution or a self built version of CppUnit with cppunit.lib as library
+you will need to adjust tests.mak.
+
+If you want to build without CppUnit simply run
+build
+without any further parameters. You will receive an error message that CppUnit
+was not found, but the sample program aes32bit will be built before this error
+message occurs.
+
+The sample program you will find as ..\src\aes32bit.exe.
+
+The CppUnit tests you will in the directory tests:
+..\tests\aes32test.exe      => AES Known Answer Test (KAT)
+..\tests\aes32keytest.exe   => key conversion test
+..\tests\aes32metest.exe    => tests the atomic AES methods of class AesEncryption
+
+C) Build on OS/2 and eComStation with OpenWatcom
+-------------------------------------------------
+Open an "OS/2 Window" (command prompt) and set the OpenWatcom environment.
+If you installed OpenWatcom at C:\Watcom the appropriate command will be
+c:\watcom\owsetenv
+
+Change the current working directory to the directory Watcom of your aes32bit
+directory, e.g.
+cd c:\aes32bit-1.00\watcom
+
+After this start the build by invoking
+build
+
+After a successful build you will find the sample program in the directory src
+of your aes32bit directory. In other words in ..\src\aes32bit.exe.
+
+Note: Under OS/2 and eComStation there is no support for CppUnit from my side.
+
+D) Build on OpenVMS
+-------------------
+Follow the instructions in [.OpenVMS]README.TXT.

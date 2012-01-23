@@ -1,0 +1,23 @@
+OBJ = main.obj aes.obj version.obj
+EXE = aes32bit.exe
+CC = wpp386
+CFLAGS = /xs
+LD = wcl386
+LFLAGS = /xs /cc++
+
+.cpp.obj:
+	$(CC) $(CFLAGS) $*.cpp
+
+all: $(EXE)
+
+$(EXE): $(OBJ)
+	$(LD) $(OBJ) $(LFLAGS) /fe=$(EXE)
+
+main.obj: main.cpp aes.h version.h portable/pstdint.h
+
+aes.obj: aes.cpp aes.h portable/pstdint.h portable
+
+version.obj: version.cpp version.h
+
+clean:
+	del $(OBJ) $(EXE)
