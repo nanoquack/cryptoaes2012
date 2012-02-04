@@ -8,6 +8,6 @@ package eccdh;
  * Initializes and starts the gui
  * @author rudolf
  */
-public class GuiMain {
+public class Main {
     
 }

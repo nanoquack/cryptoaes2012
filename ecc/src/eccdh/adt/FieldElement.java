@@ -16,4 +16,14 @@ public class FieldElement {
     public int toInteger(){
         throw new UnsupportedOperationException("not yet implemented");
     }
+    
+    @Override
+    public String toString(){
+        throw new UnsupportedOperationException("not yet implemented");
+    }
+    
+    @Override
+    public boolean equals(Object b){
+        throw new UnsupportedOperationException("not yet implemented");
+    }
 }
