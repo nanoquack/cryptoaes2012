@@ -45,5 +45,8 @@ public class DiffieHellman {
         //return K
         
         throw new UnsupportedOperationException("Not yet implemented");
+        //schemeSetup();
+        //keyDeployment();
+        //keyAgreementOperation();
     }
 }

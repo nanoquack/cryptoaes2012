@@ -9,5 +9,7 @@ package eccdh.algorithm;
  * @author rolf
  */
 public class Configuration {
-    
+    //Key derivation function
+    //Hash function for Key derivation function
+    //Diffie Hellman privitive
 }
