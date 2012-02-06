@@ -29,7 +29,7 @@ public class BitStringTest {
     @Test
     public void testOctetStringConversion() {
         String[] bsval = {"0", "1", "00000000", "00000001", "10000000", "11111111", "000000000", "100000000"};
-        String[] res = {"00000000", "00000001", "00000000", "00000001", "00000400", "00000377", "00000000", "00001000"};
+        String[] res = {"0", "1", "0", "1", "200", "377", "0", "400"};
 
         for (int i = 0; i < bsval.length; i++) {
             BitString bs = new BitString(bsval[i]);
@@ -42,7 +42,7 @@ public class BitStringTest {
     @Test
     public void testStringConversion() {
         String[] bsval = {"0", "1", "00000000", "00000001", "10000000", "11111111", "000000000", "100000000"};
-        String[] res = {"0", "1", "00000000", "00000001", "10000000", "11111111", "000000000", "100000000"};
+        String[] res = {"0", "1", "0", "1", "200", "377", "000000000", "100000000"};
 
         for (int i = 0; i < bsval.length; i++) {
             BitString bs = new BitString(bsval[i]);
