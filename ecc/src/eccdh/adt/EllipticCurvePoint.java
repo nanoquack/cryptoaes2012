@@ -4,13 +4,23 @@
  */
 package eccdh.adt;
 
+import java.math.BigInteger;
+
 /**
  *
  * @author rolf
  */
 public class EllipticCurvePoint {
+    public final BigInteger x;
+    public final BigInteger y;
+    
     public EllipticCurvePoint(OctetString octet){
-        
+        throw new UnsupportedOperationException("not yet implemented");
+    }
+    
+    public EllipticCurvePoint(BigInteger x, BigInteger y){
+        this.x = x;
+        this.y = y;
     }
     
     public OctetString toOctetString(){

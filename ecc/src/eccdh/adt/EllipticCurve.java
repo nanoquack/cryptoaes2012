@@ -13,13 +13,14 @@ import java.math.BigInteger;
  * erfüllen, sonst kann es Singularitäten geben. @author: rolf
  */
 public class EllipticCurve {
-    public EllipticCurve(BigInteger p, BigInteger a, BigInteger b, EllipticCurvePoint g, BigInteger n, BigInteger h){
+    public EllipticCurve(BigInteger p, BigInteger a, BigInteger b, EllipticCurvePoint g, BigInteger n, BigInteger h, int q){
         this.p = p;
         this.a = a;
         this.b = b;
         this.g = g;
         this.n = n;
         this.h = h;
+        this.q = q;
     }
     
     
@@ -49,4 +50,9 @@ public class EllipticCurve {
      * siehe S. 25
      */
     public final BigInteger h;
+    
+    /**
+     * The bit-length
+     */
+    public final int q;
 }
