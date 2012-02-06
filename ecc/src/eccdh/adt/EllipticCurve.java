@@ -5,6 +5,7 @@
 package eccdh.adt;
 
 import eccdh.adt.EllipticCurvePoint;
+import java.math.BigInteger;
 
 /*
  * Elliptic curve: y^2 = x^3 + a*x^2 + b
@@ -12,30 +13,40 @@ import eccdh.adt.EllipticCurvePoint;
  * erfüllen, sonst kann es Singularitäten geben. @author: rolf
  */
 public class EllipticCurve {
+    public EllipticCurve(BigInteger p, BigInteger a, BigInteger b, EllipticCurvePoint g, BigInteger n, BigInteger h){
+        this.p = p;
+        this.a = a;
+        this.b = b;
+        this.g = g;
+        this.n = n;
+        this.h = h;
+    }
+    
+    
     /*
      * Pimzahl, die das finite Feld bestimmt. 
      */
-    private int p;
+    public final BigInteger p;
     
     /**
      * a und b legen die zu verwendende elliptische Kurve über die Gleicung y^2 = x^3 + a*x^2 + b fest. 
      */
-    private int a, b;
+    public final BigInteger a, b;
     
     /**
      * Der gemeinsame Basepoint G auf der durch a und b definierten Kurve. 
      */
-    private EllipticCurvePoint G;
+    public final EllipticCurvePoint g;
     
     /**
      * O-Text: a prime n which is the order of G
      * siehe S. 25
      */
-    private int n;
+    public final BigInteger n;
     
     /**
      * O-Text: an integer h which is the cofactor
      * siehe S. 25
      */
-    private int h;
+    public final BigInteger h;
 }

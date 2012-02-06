@@ -69,11 +69,11 @@ public class OctetStringTest {
         String[] octval = {};
         EllipticCurvePoint[] res = {};
 
-//        for (int i = 0; i < octval.length; i++) {
-//            OctetString os = new OctetString(octval[i]);
-//            Integer is = new Integer(res[i]);
-//            Integer intres = os.toInteger();
-//            assertEquals("Conversion " + (i + 1) + " not correct", is, intres);
-//        }
+        for (int i = 0; i < octval.length; i++) {
+            OctetString os = new OctetString(octval[i]);
+            EllipticCurvePoint ec = res[i];
+            EllipticCurvePoint ecpoint = os.toEllipticCurvePoint();
+            assertEquals("Conversion " + (i + 1) + " not correct", ec, ecpoint);
+        }
     }
 }
