@@ -35,10 +35,6 @@ public class OctetString {
         throw new UnsupportedOperationException("not yet implemented");
     }
     
-    public FieldElement toFieldElement(){
-        throw new UnsupportedOperationException("not yet implemented");
-    }
-    
     @Override
     public String toString(){
         return new String(mValue);
