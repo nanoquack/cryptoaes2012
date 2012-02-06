@@ -41,8 +41,8 @@ public class OctetStringTest {
         }
         assertNotNull("Negative integer should raise exception", exception);
         
-        int[] intval = {};
-        String[] res = {};
+        int[] intval = {0, 1, 7, 8, 255};
+        String[] res = {"0", "1", "7", "10", "377"};
 
         for (int i = 0; i < intval.length; i++) {
             Integer is = new Integer(intval[i]);
@@ -54,14 +54,14 @@ public class OctetStringTest {
 
     @Test
     public void testOctetStringToInt() {
-        String[] octval = {};
-        String[] res = {};
+        String[] octval = {"0", "1", "7", "10", "377"};
+        int[] res = {0, 1, 7, 8, 255};
 
         for (int i = 0; i < octval.length; i++) {
             OctetString os = new OctetString(octval[i]);
-            BitString bs = new BitString(res[i]);
-            BitString bitres = os.toBitString();
-            assertEquals("Conversion " + (i + 1) + " not correct", bs, bitres);
+            Integer is = new Integer(res[i]);
+            Integer intres = os.toInteger();
+            assertEquals("Conversion " + (i + 1) + " not correct", is, intres);
         }
     }
 }
