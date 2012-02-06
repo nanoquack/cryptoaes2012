@@ -8,9 +8,6 @@ package eccdh.algorithm;
  *
  * @author rolf
  */
-public class PrivateKey {
-    /**
-     * Der Private Key zu einer elliptischen Kurve und einem gemeinsamen Punkt. 
-     */
-    private int d;
+public class EncryptionException extends Exception{
+    
 }

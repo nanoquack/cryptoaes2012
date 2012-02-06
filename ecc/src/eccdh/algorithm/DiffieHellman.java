@@ -8,9 +8,9 @@ package eccdh.algorithm;
  *
  * @author rolf
  */
-public class DiffieHellman {
+public abstract class DiffieHellman {
 
-    public String execute(Configuration config) {
+    public abstract String execute(Configuration config) throws EncryptionException;
         //Key Agreement Schemes: S 45.
         //Key derivation function KDF: S 29
         //Hash Functions for Key derivation function: S 28
@@ -43,10 +43,4 @@ public class DiffieHellman {
         //7h.       i++
         //7i. k = k1||k2||...||klast
         //return K
-        
-        throw new UnsupportedOperationException("Not yet implemented");
-        //schemeSetup();
-        //keyDeployment();
-        //keyAgreementOperation();
-    }
 }
