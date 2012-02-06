@@ -30,8 +30,21 @@ public class OctetStringTest {
 
     @Test
     public void testIntToOctetString() {
-        String[] octval = {"0", "1", "200", "377", "400"};
-        String[] res = {"0", "1", "10000000", "11111111", "100000000"};
+        String[] intval = {};
+        String[] res = {};
+
+        for (int i = 0; i < intval.length; i++) {
+            Integer is = new Integer(intval[i]);
+            OctetString os = new OctetString(res[i]);
+            OctetString osres = new OctetString(is);
+            assertEquals("Conversion " + (i + 1) + " not correct", os, osres);
+        }
+    }
+
+    @Test
+    public void testOctetStringToInt() {
+        String[] octval = {};
+        String[] res = {};
 
         for (int i = 0; i < octval.length; i++) {
             OctetString os = new OctetString(octval[i]);
