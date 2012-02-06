@@ -11,7 +11,16 @@ package eccdh.algorithm;
 public class DiffieHellman {
 
     public String execute(Configuration config) {
-        //0. einigung auf algorithmus: einigung auf key derivation function KDF sowie ob Diffie-Hellman oder cofactor-Diffie-Hellman verwendet werden soll
+        //Key Agreement Schemes: S 45.
+        //Key derivation function KDF: S 29
+        //Hash Functions for Key derivation function: S 28
+        //Diffie-Hellman Privitives: S 25
+        
+        
+        
+        //Algorithmus siehe Key Agreement Schemes S 45ff: 
+        //0. einigung auf algorithmus: einigung auf key derivation function KDF + Hashfunktion 
+        //      sowie ob Diffie-Hellman oder cofactor-Diffie-Hellman verwendet werden soll
         //1. finde gemeinsame Kurve und gemeinsamen Punkt auf der Kurve
         //2. berechne Private Key d und Public Key Q
         //3. Tausche die Public Keys aus
@@ -29,7 +38,7 @@ public class DiffieHellman {
         //7c. überprüfe, ob Keydatalen < hashlen * (2^32 - 1). Wenn es größer ist, gibt invalid aus 
         //7d. iniziiere einen 4 octets langen big-endian octet string als counter=00000001
         //7e. for i = 1 to Math.ceil( keydatalen/hashlen )
-        //7f.       compute ki = Hash(z||counter||sharedInfo) using the selected hash function from the list of approved hash functions siehe S. 
+        //7f.       compute ki = Hash(z||counter||sharedInfo) using the selected hash function from the list of approved hash functions siehe S 28
         //7g.       counter++
         //7h.       i++
         //7i. k = k1||k2||...||klast
