@@ -4,6 +4,7 @@
  */
 package eccdh.adt;
 
+import eccdh.algorithm.EncryptionException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +31,17 @@ public class OctetStringTest {
 
     @Test
     public void testIntToOctetString() {
-        String[] intval = {};
+        Integer negative = -1;
+        EncryptionException exception=null;
+        try{
+            OctetString negativeTest = new OctetString(negative);
+        }
+        catch(EncryptionException e){
+            exception = e;
+        }
+        assertNotNull("Negative integer should raise exception", exception);
+        
+        int[] intval = {};
         String[] res = {};
 
         for (int i = 0; i < intval.length; i++) {

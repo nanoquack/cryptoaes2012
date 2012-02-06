@@ -4,6 +4,8 @@
  */
 package eccdh.adt;
 
+import eccdh.algorithm.EncryptionException;
+
 /**
  *
  * @author rolf
@@ -15,7 +17,7 @@ public class OctetString {
         mValue = "";
     }
     
-    public OctetString(int value){
+    public OctetString(int value) throws EncryptionException{
         mValue = Integer.toString(value);
     }
     
