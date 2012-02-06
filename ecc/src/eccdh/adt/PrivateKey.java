@@ -12,5 +12,5 @@ public class PrivateKey {
     /**
      * Der Private Key zu einer elliptischen Kurve und einem gemeinsamen Punkt. 
      */
-    private int d;
+    private long d;
 }
