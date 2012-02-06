@@ -5,3 +5,4 @@ ecc/build/
 /Krypto/nbproject/private/
 /ecc/nbproject/private/
 *.vpp~*
+/ecc/nbproject/
