@@ -30,7 +30,7 @@ public class OctetStringTest {
     }
 
     @Test
-    public void testIntToOctetString() {
+    public void testIntToOctetString() throws EncryptionException{
         Integer negative = -1;
         EncryptionException exception=null;
         try{
