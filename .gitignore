@@ -2,8 +2,11 @@ Krypto/build/
 Krypto/dist/
 ecc/build/
 ecc/build/
-/Krypto/nbproject/private/
-/ecc/nbproject/private/
+Krypto/nbproject/private/
+ecc/nbproject/private/
 *.vpp~*
-/ecc/nbproject/
+ecc/nbproject/
 Krypto/nbproject/
+ecc/build.xml
+ecc/manifest.mf
+
