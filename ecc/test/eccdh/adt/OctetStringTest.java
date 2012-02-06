@@ -30,17 +30,16 @@ public class OctetStringTest {
     }
 
     @Test
-    public void testIntToOctetString() throws EncryptionException{
+    public void testIntToOctetString() throws EncryptionException {
         Integer negative = -1;
-        EncryptionException exception=null;
-        try{
+        EncryptionException exception = null;
+        try {
             OctetString negativeTest = new OctetString(negative);
-        }
-        catch(EncryptionException e){
+        } catch (EncryptionException e) {
             exception = e;
         }
         assertNotNull("Negative integer should raise exception", exception);
-        
+
         int[] intval = {0, 1, 7, 8, 255};
         String[] res = {"0", "1", "7", "10", "377"};
 
@@ -63,5 +62,18 @@ public class OctetStringTest {
             Integer intres = os.toInteger();
             assertEquals("Conversion " + (i + 1) + " not correct", is, intres);
         }
+    }
+
+    @Test
+    public void testOctetStringToEllipticCurvePoint() {
+        String[] octval = {};
+        EllipticCurvePoint[] res = {};
+
+//        for (int i = 0; i < octval.length; i++) {
+//            OctetString os = new OctetString(octval[i]);
+//            Integer is = new Integer(res[i]);
+//            Integer intres = os.toInteger();
+//            assertEquals("Conversion " + (i + 1) + " not correct", is, intres);
+//        }
     }
 }

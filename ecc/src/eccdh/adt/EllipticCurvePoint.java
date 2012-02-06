@@ -9,6 +9,10 @@ package eccdh.adt;
  * @author rolf
  */
 public class EllipticCurvePoint {
+    public EllipticCurvePoint(OctetString octet){
+        
+    }
+    
     public OctetString toOctetString(){
         throw new UnsupportedOperationException("not yet implemented");
     }
