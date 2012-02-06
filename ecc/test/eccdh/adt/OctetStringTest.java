@@ -17,8 +17,8 @@ public class OctetStringTest {
 
     @Test
     public void testBitStringConversion() {
-        String[] bsval = {"0", "1", "00000000", "00000001", "10000000", "11111111", "000000000", "100000000"};
-        String[] res = {"0", "1", "0", "1", "200", "377", "0", "400"};
+        String[] bsval = {"0", "1", "0", "1", "200", "377", "0", "400"};
+        String[] res = {"0", "1", "00000000", "00000001", "10000000", "11111111", "000000000", "100000000"};
 
         for (int i = 0; i < bsval.length; i++) {
             OctetString os = new OctetString(bsval[i]);
