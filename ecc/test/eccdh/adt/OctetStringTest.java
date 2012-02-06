@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  *
  * @author rolf
  */
-public class BitStringTest {
+public class OctetStringTest {
 
     @Test
     public void testOctetStringConversion() {
@@ -21,10 +21,10 @@ public class BitStringTest {
         String[] res = {"0", "1", "0", "1", "200", "377", "0", "400"};
 
         for (int i = 0; i < bsval.length; i++) {
-            BitString bs = new BitString(bsval[i]);
-            OctetString os = new OctetString(res[i]);
-            OctetString osres = bs.toOctetString();
-            assertEquals("Conversion " + (i+1) + " not correct", os, osres);
+            OctetString os = new OctetString(bsval[i]);
+            BitString bs = new BitString(res[i]);
+            BitString bitres = os.toBitString();
+            assertEquals("Conversion " + (i + 1) + " not correct", bs, bitres);
         }
     }
 }
