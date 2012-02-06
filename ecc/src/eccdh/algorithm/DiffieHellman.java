@@ -11,6 +11,7 @@ package eccdh.algorithm;
 public abstract class DiffieHellman {
 
     public abstract String execute(Configuration config) throws EncryptionException;
+        //Data Types and Conversions: S 9
         //Key Agreement Schemes: S 45.
         //Key derivation function KDF: S 29
         //Hash Functions for Key derivation function: S 28
