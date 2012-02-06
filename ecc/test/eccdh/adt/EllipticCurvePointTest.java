@@ -28,9 +28,22 @@ public class EllipticCurvePointTest {
 
         for (int i = 0; i < ecval.length; i++) {
             EllipticCurvePoint ec = ecval[i];
-            OctetString os = new OctetString(res[i]);
-            OctetString osres = ec.toOctetString();
+            BigInteger os = new BigInteger(res[i]);
+            BigInteger osres = ec.toOctet();
             assertEquals("Conversion " + (i + 1) + " not correct", os, osres);
+        }
+    }
+
+    @Test
+    public void testOctetStringToEllipticCurvePoint() {
+        String[] octval = {};
+        EllipticCurvePoint[] res = {};
+
+        for (int i = 0; i < octval.length; i++) {
+            BigInteger os = new BigInteger(octval[i]);
+            EllipticCurvePoint ec = res[i];
+            EllipticCurvePoint ecpoint = new EllipticCurvePoint(os);
+            assertEquals("Conversion " + (i + 1) + " not correct", ec, ecpoint);
         }
     }
 }

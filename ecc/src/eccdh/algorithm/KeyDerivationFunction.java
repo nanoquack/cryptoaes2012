@@ -4,7 +4,7 @@
  */
 package eccdh.algorithm;
 
-import eccdh.adt.OctetString;
+import java.math.BigInteger;
 
 /**
  *
@@ -18,5 +18,5 @@ public abstract class KeyDerivationFunction {
      * @param sharedInfo zu sharende daten
      * @return 
      */
-    public abstract OctetString execute(OctetString z, int keydatalen, OctetString sharedInfo) throws EncryptionException;
+    public abstract BigInteger execute(BigInteger z, int keydatalen, BigInteger sharedInfo) throws EncryptionException;
 }
