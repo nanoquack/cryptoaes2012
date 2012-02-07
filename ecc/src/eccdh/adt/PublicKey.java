@@ -4,13 +4,13 @@
  */
 package eccdh.adt;
 
-import eccdh.adt.EllipticCurvePoint;
+import java.io.Serializable;
 
 /**
  *
  * @author rolf
  */
-public class PublicKey {
+public class PublicKey implements Serializable {
 
     /**
      * Der Public-Key. Dieser ist eine Punkt auf der elliptischen Kurve und wird
