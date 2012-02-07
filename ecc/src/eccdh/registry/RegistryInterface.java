@@ -4,10 +4,11 @@
  */
 package eccdh.registry;
 
-import eccdh.adt.EllipticCurveFactory;
+import eccdh.adt.EllipticCurveFactory.EC_CURVES;
 import eccdh.adt.PublicKey;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  *
@@ -23,7 +24,7 @@ public interface RegistryInterface extends Remote {
      * @return true if the key has been registered, false otherwise (i.e. if the name is already taken)
      * @throws RemoteException 
      */
-    public boolean registerPublicKey(PublicKey key, EllipticCurveFactory.EC_CURVES curve, String name) throws RemoteException;
+    public boolean registerPublicKey(PublicKey key, EC_CURVES curve, String name) throws RemoteException;
     
     /**
      * remove the public key of the client from the registry
@@ -33,23 +34,32 @@ public interface RegistryInterface extends Remote {
      * @return true if the key was removed, false otherwise (i.e. if the key or person does not exist)
      * @throws RemoteException 
      */
-    public boolean removePublicKey(String name, EllipticCurveFactory.EC_CURVES curve) throws RemoteException;
-    
+    public boolean removePublicKey(String name, EC_CURVES curve) throws RemoteException;
+       
     /**
-     * change the persons status to online
+     * retrieve a list of all registered names
      * 
-     * @param name the username
-     * @return true if the person exists and the status is online
+     * @return a list of all registered names
      * @throws RemoteException 
      */
-    public boolean login(String name) throws RemoteException;
+    public List<String> getNames() throws RemoteException;
     
     /**
-     * change the persons status to offline
+     * retrieve a list of all curves for the given name
      * 
      * @param name the username
-     * @return true if the person exists and is offline now
+     * @return a list of all registered curves for the name
      * @throws RemoteException 
      */
-    public boolean logout(String name) throws RemoteException;
+    public List<EC_CURVES> getCurves(String name) throws RemoteException;
+    
+    /**
+     * get the public key for the registered name and given curve
+     * 
+     * @param name the username
+     * @param curve the curve
+     * @return the public key for the username and curve
+     * @throws RemoteException 
+     */
+    public PublicKey getKey(String name, EC_CURVES curve) throws RemoteException;
 }
