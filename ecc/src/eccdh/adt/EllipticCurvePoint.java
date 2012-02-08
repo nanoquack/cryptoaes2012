@@ -12,7 +12,6 @@ import java.math.BigInteger;
  */
 public class EllipticCurvePoint {
 
-    public final EllipticCurve curve;
     public final BigInteger x;
     public final BigInteger y;
 
@@ -23,13 +22,11 @@ public class EllipticCurvePoint {
         String yValue = value.substring((int) (value.length() / 2), value.length());
         this.x = new BigInteger(xValue, 16);
         this.y = new BigInteger(yValue, 16);
-        this.curve = curve;
     }
 
     public EllipticCurvePoint(BigInteger x, BigInteger y) {
         this.x = x;
         this.y = y;
-        this.curve = curve;
     }
 
     public BigInteger toOctet() {
