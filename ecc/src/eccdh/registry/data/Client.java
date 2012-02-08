@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eccdh.registry;
+package eccdh.registry.data;
 
 import eccdh.adt.EllipticCurveFactory.EC_CURVES;
 import eccdh.adt.PublicKey;
@@ -16,17 +16,29 @@ import java.util.List;
  */
 public class Client implements Serializable {
     private String name;
-        
+    private String host;
+    private int port;
+    
     private Hashtable<EC_CURVES, PublicKey> keyTable;
     
-    public Client(String name, EC_CURVES curve, PublicKey key) {
+    public Client(String name, String host, int port) {
         this.name = name;
+        this.host = host;
+        this.port = port;
         keyTable = new Hashtable<EC_CURVES, PublicKey>();
-        keyTable.put(curve, key);
+        
     }
     
     public String getName() {
         return name;
+    }
+    
+    public String getHost() {
+        return host;
+    }
+    
+    public int getPort() {
+        return port;
     }
     
     public boolean hasKey(EC_CURVES curve) {

@@ -4,8 +4,7 @@
  */
 package eccdh.registry;
 
-import eccdh.adt.EllipticCurveFactory.EC_CURVES;
-import eccdh.adt.PublicKey;
+import eccdh.registry.data.Client;
 import java.rmi.RemoteException;
 import java.util.Hashtable;
 import java.util.List;
@@ -25,10 +24,12 @@ public class Registry implements RegistryInterface {
     @Override
     public synchronized boolean registerClient(Client client) throws RemoteException {
         if (!clientTable.containsKey(client.getName())) {
+            System.out.println("Client " + client.getName() + " registered with " + client.getCurves().size() + " keys");
             clientTable.put(client.getName(), client);
             return true;
         } 
         
+        System.out.println("Client name " + client.getName() + " already taken");
         return false;
     }
 
@@ -39,6 +40,7 @@ public class Registry implements RegistryInterface {
             return true;
         }
         
+        System.out.println("Client " + name + " does not exist");
         return false;
     }
 
