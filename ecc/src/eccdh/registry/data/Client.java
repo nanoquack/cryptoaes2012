@@ -5,7 +5,6 @@
 package eccdh.registry.data;
 
 import eccdh.adt.CurveConstants.EC_CURVES;
-import eccdh.adt.EllipticCurveFactory.EC_CURVES;
 import eccdh.adt.PublicKey;
 import java.io.Serializable;
 import java.util.Hashtable;
