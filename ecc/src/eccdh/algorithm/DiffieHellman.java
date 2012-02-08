@@ -4,13 +4,25 @@
  */
 package eccdh.algorithm;
 
+import eccdh.adt.PublicKey;
+
 /**
  *
  * @author rolf
  */
 public abstract class DiffieHellman {
+    protected final Configuration config;
 
-    public abstract String execute(Configuration config) throws EncryptionException;
+    public DiffieHellman(Configuration config){
+        this.config = config;
+    }
+    
+    public abstract PublicKey generateKeys() throws EncryptionException;
+    public abstract PublicKey getPublicKey() throws EncryptionException;
+    public abstract String encrypt(String plaintText) throws EncryptionException;
+    public abstract String decrypt(String cypherText) throws EncryptionException;
+    public abstract Byte[] encrypt(Byte[] plainBytes) throws EncryptionException;
+    public abstract Byte[] decrypt(Byte[] plainBytes) throws EncryptionException;
         //Data Types and Conversions: S 9
         //Key Agreement Schemes: S 45.
         //Key derivation function KDF: S 29
@@ -19,7 +31,6 @@ public abstract class DiffieHellman {
         //Number of Point #E(Fp): S 7
         //Regeln um Punkte zu addieren: S 7
         //skalare Multiplikation von Punkten: S 7
-        
         
         //Algorithmus siehe Key Agreement Schemes S 45ff: 
         //0. einigung auf algorithmus: einigung auf key derivation function KDF + Hashfunktion 
