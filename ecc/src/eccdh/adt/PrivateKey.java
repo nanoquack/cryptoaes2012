@@ -14,5 +14,9 @@ public class PrivateKey {
     /**
      * Der Private Key zu einer elliptischen Kurve und einem gemeinsamen Punkt. 
      */
-    private BigInteger d;
+    public final BigInteger d;
+    
+    public PrivateKey(BigInteger d){
+        this.d = d;
+    }
 }

@@ -15,34 +15,34 @@ import static org.junit.Assert.*;
 public class EllipticCurvePointTest {
 
     @Test
-    public void testEllipticCurvePointToOctetString() {
-        EllipticCurve curve = EllipticCurveFactory.newInstance(CurveConstants.EC_CURVES.secp192k1);
-        //BigInteger Math.log(curve.p) / Math.log(2))).intValue();
-//        int infiniteLength = 1;
-//        int compressedLength = ((int) Math.ceil(Math.log(curve.q) / Math.log(2)) + 1);
-        int uncompressedLength = 2 * ((int) Math.ceil(Math.log(curve.q) / Math.log(2)) + 1);
+    public void testEllipticCurvePointToUncompressedOctetString() {
+//        int uncompressedLength = 2 * ((int) Math.ceil(Math.log(CurveConstants.secp192k_1_q) / Math.log(2)) + 1);
 
-        EllipticCurvePoint[] ecval = {new EllipticCurvePoint(new BigInteger("1"), new BigInteger("2")),
-            new EllipticCurvePoint(new BigInteger("7"), new BigInteger("8"))};
-        String[] res = {"040000000100000002", "040000000700000010"};
+        EllipticCurvePoint[] ecval = {
+            new EllipticCurvePoint(new BigInteger("DB4FF10E" + "C057E9AE" + "26B07D02" + "80B7F434" + "1DA5D1B1" + "EAE06C7D", 16),
+            new BigInteger("9B2F2F6D" + "9C5628A7" + "844163D0" + "15BE8634" + "4082AA88" + "D95E2F9D", 16))
+        };
+        BigInteger[] expected = {CurveConstants.secp192k1_G};
 
         for (int i = 0; i < ecval.length; i++) {
             EllipticCurvePoint ec = ecval[i];
-            BigInteger os = new BigInteger(res[i]);
-            BigInteger osres = ec.toOctet();
-            assertEquals("Conversion " + (i + 1) + " not correct", os, osres);
+            BigInteger expRes = expected[i];
+            BigInteger res = ec.toOctet();
+            assertEquals("Conversion " + (i + 1) + " not correct", expRes, res);
         }
     }
 
     @Test
-    public void testOctetStringToEllipticCurvePoint() {
-        String[] octval = {};
-        EllipticCurvePoint[] res = {};
+    public void testUncompressedOctetStringToEllipticCurvePoint() {
+        BigInteger[] octval = {CurveConstants.secp192k1_G};
+        EllipticCurvePoint[] res = {
+            new EllipticCurvePoint(new BigInteger("DB4FF10E" + "C057E9AE" + "26B07D02" + "80B7F434" + "1DA5D1B1" + "EAE06C7D", 16),
+            new BigInteger("9B2F2F6D" + "9C5628A7" + "844163D0" + "15BE8634" + "4082AA88" + "D95E2F9D", 16))
+        };
 
         for (int i = 0; i < octval.length; i++) {
-            BigInteger os = new BigInteger(octval[i]);
             EllipticCurvePoint ec = res[i];
-            EllipticCurvePoint ecpoint = new EllipticCurvePoint(os);
+            EllipticCurvePoint ecpoint = new EllipticCurvePoint(octval[i]);
             assertEquals("Conversion " + (i + 1) + " not correct", ec, ecpoint);
         }
     }

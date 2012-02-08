@@ -7,17 +7,19 @@ package eccdh.adt;
 import java.io.Serializable;
 
 /**
+ * Der Public-Key. Dieser ist eine Punkt auf der elliptischen Kurve und wird aus
+ * d * G berechnet, wobei d der Private Key ist und G der gemeinsame Punkt auf
+ * der elliptischen Kurve.
  *
  * @author rolf
  */
 public class PublicKey implements Serializable {
-    
-    /**
-     * Der Public-Key. Dieser ist eine Punkt auf der elliptischen Kurve und wird
-     * aus d * G berechnet, wobei d der Private Key ist und G der gemeinsame
-     * Punkt auf der elliptischen Kurve.
-     */
-    private EllipticCurvePoint q;
-    
-    private CurveConstants.EC_CURVES curveId;
+
+    public final EllipticCurvePoint q;
+    public final CurveConstants.EC_CURVES curveId;
+
+    public PublicKey(CurveConstants.EC_CURVES curveId, EllipticCurvePoint q) {
+        this.q = q;
+        this.curveId = curveId;
+    }
 }

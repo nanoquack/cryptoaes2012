@@ -4,6 +4,7 @@
  */
 package eccdh.algorithm.impl;
 
+import eccdh.adt.EllipticCurve;
 import eccdh.adt.PrivateKey;
 import eccdh.adt.PublicKey;
 import eccdh.algorithm.Configuration;
@@ -24,6 +25,10 @@ public class DiffieHellmanImpl extends DiffieHellman{
     
     @Override
     public PublicKey generateKeys() throws EncryptionException {
+        EllipticCurve curve = this.config.curve;
+        
+//        this.pubKey = new PublicKey();
+//        return pubKey;
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
