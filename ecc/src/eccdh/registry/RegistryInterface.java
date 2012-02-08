@@ -5,8 +5,6 @@
 package eccdh.registry;
 
 import eccdh.registry.data.Client;
-import eccdh.adt.EllipticCurveFactory.EC_CURVES;
-import eccdh.adt.PublicKey;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
