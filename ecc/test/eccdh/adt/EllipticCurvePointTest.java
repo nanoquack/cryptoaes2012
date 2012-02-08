@@ -16,7 +16,7 @@ public class EllipticCurvePointTest {
 
     @Test
     public void testEllipticCurvePointToOctetString() {
-        EllipticCurve curve = EllipticCurveFactory.newInstance(EllipticCurveFactory.EC_CURVES.secp192k1);
+        EllipticCurve curve = EllipticCurveFactory.newInstance(CurveConstants.EC_CURVES.secp192k1);
         //BigInteger Math.log(curve.p) / Math.log(2))).intValue();
 //        int infiniteLength = 1;
 //        int compressedLength = ((int) Math.ceil(Math.log(curve.q) / Math.log(2)) + 1);
