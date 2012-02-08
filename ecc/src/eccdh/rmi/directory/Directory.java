@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eccdh.directory;
+package eccdh.rmi.directory;
 
-import eccdh.directory.data.Client;
+import eccdh.rmi.directory.data.User;
 import java.rmi.RemoteException;
 import java.util.Hashtable;
 import java.util.List;
@@ -17,14 +17,14 @@ public class Directory implements DirectoryInterface {
 
     public static final String SERVICE = "DHDirectory";
     
-    private Hashtable<String, Client> clientTable;
+    private Hashtable<String, User> clientTable;
     
     public Directory() {
-        clientTable = new Hashtable<String, Client>();
+        clientTable = new Hashtable<String, User>();
     }
     
     @Override
-    public synchronized boolean registerClient(Client client) throws RemoteException {
+    public synchronized boolean registerClient(User client) throws RemoteException {
         if (!clientTable.containsKey(client.getName())) {
             System.out.println("Client " + client.getName() + " registered with " + client.getCurves().size() + " keys");
             clientTable.put(client.getName(), client);
@@ -52,7 +52,7 @@ public class Directory implements DirectoryInterface {
     }
 
     @Override
-    public synchronized Client getClient(String name) throws RemoteException {
+    public synchronized User getClient(String name) throws RemoteException {
         return clientTable.get(name);
     }
 }

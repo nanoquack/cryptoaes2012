@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eccdh.directory;
+package eccdh.rmi.directory;
 
-import eccdh.directory.data.Client;
+import eccdh.rmi.directory.data.User;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -21,7 +21,7 @@ public interface DirectoryInterface extends Remote {
      * @return true if the client has been registered, false otherwise (i.e. if the name is already taken)
      * @throws RemoteException 
      */
-    public boolean registerClient(Client client) throws RemoteException;
+    public boolean registerClient(User client) throws RemoteException;
     
     /**
      * remove the public key of the client from the registry
@@ -47,5 +47,5 @@ public interface DirectoryInterface extends Remote {
      * @return the client for the username
      * @throws RemoteException 
      */
-    public Client getClient(String name) throws RemoteException;
+    public User getClient(String name) throws RemoteException;
 }

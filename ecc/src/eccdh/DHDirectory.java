@@ -4,8 +4,8 @@
  */
 package eccdh;
 
-import eccdh.directory.Directory;
-import eccdh.directory.DirectoryInterface;
+import eccdh.rmi.directory.Directory;
+import eccdh.rmi.directory.DirectoryInterface;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;

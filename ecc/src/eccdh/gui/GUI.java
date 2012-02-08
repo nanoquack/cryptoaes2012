@@ -4,17 +4,126 @@
  */
 package eccdh.gui;
 
+import eccdh.rmi.client.Client;
+import eccdh.rmi.client.ClientInterface;
+import eccdh.rmi.directory.Directory;
+import eccdh.rmi.directory.DirectoryInterface;
+import eccdh.rmi.directory.data.User;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.rmi.AlreadyBoundException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+
 /**
  *
  * @author Alex
  */
 public class GUI extends javax.swing.JFrame {
 
+    private boolean connected = false;
+    private DirectoryInterface directory;
+    private ClientInterface client;
+    private Registry registry;
+    private User user;
+
     /**
      * Creates new form GUI
      */
     public GUI() {
         initComponents();
+
+        this.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                disconnect();
+            }
+        });
+    }
+
+    private void disconnect() {
+        if (connected) {
+            try {
+                directory.removeClient(user.getName());
+            } catch (RemoteException ex) {
+                System.out.println(ex.getMessage());
+                lbStatus.setText(ex.getMessage());
+            }
+
+            try {
+                registry.unbind(user.getName());
+            } catch (RemoteException ex) {
+                System.out.println(ex.getMessage());
+                lbStatus.setText(ex.getMessage());
+            } catch (NotBoundException ex) {
+                System.out.println(ex.getMessage());
+                lbStatus.setText(ex.getMessage());
+            }
+        }
+        
+        tfName.setEnabled(true);
+        tfRegistry.setEnabled(true);
+        btConnect.setText("Connect");
+        connected = false;
+    }
+
+    private void connect() {
+        try {
+
+            if (!connected && !tfName.getText().isEmpty() && !tfName.getText().equals(Directory.SERVICE)) {
+                tfName.setEnabled(false);
+                tfRegistry.setEnabled(false);
+
+                String name = tfName.getText();
+                String host = "localhost";
+                int port = 1099;
+
+                if (!tfRegistry.getText().isEmpty()) {
+                    host = tfRegistry.getText();
+                    if (host.indexOf(':') != -1) {
+                        try {
+                            port = Integer.parseInt(host.substring(host.indexOf(':') + 1));
+                        } catch (NumberFormatException ex) {
+                            System.err.println("Wrong port: " + host.substring(host.indexOf(':') + 1));
+                        }
+
+                        host = host.substring(0, host.indexOf(':'));
+                    }
+                }
+
+                registry = LocateRegistry.getRegistry(host, port);
+                directory = (DirectoryInterface) registry.lookup(Directory.SERVICE);
+
+                client = (ClientInterface) UnicastRemoteObject.exportObject(new Client(this), 0);
+
+                registry.bind(name, client);
+                user = new User(name);
+
+                //TODO Generate key and add to client
+
+                directory.registerClient(user);
+
+                btConnect.setText("Disconnect");
+                connected = true;
+            }
+
+        } catch (RemoteException ex) {
+            System.out.println(ex.getMessage());
+            lbStatus.setText(ex.getMessage());
+        } catch (NotBoundException ex) {
+            System.out.println(ex.getMessage());
+            lbStatus.setText(ex.getMessage());
+        } catch (AlreadyBoundException ex) {
+            System.out.println(ex.getMessage());
+            lbStatus.setText(ex.getMessage());
+        } finally {
+            tfName.setEnabled(true);
+            tfRegistry.setEnabled(true);
+        }
     }
 
     /**
@@ -33,13 +142,14 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         keyList = new javax.swing.JList();
         lbStatus = new javax.swing.JLabel();
-        lbServer = new javax.swing.JLabel();
-        tfServer = new javax.swing.JTextField();
+        lbName = new javax.swing.JLabel();
+        tfName = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Diffie Hellmann Chat");
 
-        tfRegistry.setText("localhost");
+        tfRegistry.setText("localhost:1099");
+        tfRegistry.setNextFocusableComponent(btConnect);
         tfRegistry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfRegistryActionPerformed(evt);
@@ -47,9 +157,15 @@ public class GUI extends javax.swing.JFrame {
         });
 
         lbRegistry.setLabelFor(tfRegistry);
-        lbRegistry.setText("Registry Hostname or IP");
+        lbRegistry.setText("Registry");
 
         btConnect.setText("Connect");
+        btConnect.setNextFocusableComponent(tfName);
+        btConnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConnectActionPerformed(evt);
+            }
+        });
 
         keyList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -61,14 +177,8 @@ public class GUI extends javax.swing.JFrame {
 
         lbStatus.setText("Status");
 
-        lbServer.setText("Local Server IP and Port");
-
-        tfServer.setText("localhost:1234");
-        tfServer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfServerActionPerformed(evt);
-            }
-        });
+        lbName.setLabelFor(tfName);
+        lbName.setText("Name");
 
         javax.swing.GroupLayout tabConnLayout = new javax.swing.GroupLayout(tabConn);
         tabConn.setLayout(tabConnLayout);
@@ -79,36 +189,37 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(tabConnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(tabConnLayout.createSequentialGroup()
-                        .addComponent(lbStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                         .addGap(265, 265, 265))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabConnLayout.createSequentialGroup()
-                        .addGroup(tabConnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, tabConnLayout.createSequentialGroup()
-                                .addComponent(lbServer)
-                                .addGap(18, 18, 18)
-                                .addComponent(tfServer))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, tabConnLayout.createSequentialGroup()
-                                .addComponent(lbRegistry)
-                                .addGap(18, 18, 18)
-                                .addComponent(tfRegistry, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)))
+                    .addGroup(tabConnLayout.createSequentialGroup()
+                        .addGroup(tabConnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbRegistry)
+                            .addComponent(lbName))
                         .addGap(18, 18, 18)
-                        .addComponent(btConnect)))
+                        .addGroup(tabConnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabConnLayout.createSequentialGroup()
+                                .addComponent(tfName)
+                                .addGap(91, 91, 91))
+                            .addGroup(tabConnLayout.createSequentialGroup()
+                                .addComponent(tfRegistry, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btConnect)))))
                 .addContainerGap())
         );
         tabConnLayout.setVerticalGroup(
             tabConnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabConnLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(tabConnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbServer)
-                    .addComponent(tfServer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(tabConnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbName)
+                    .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(tabConnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfRegistry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbRegistry)
+                    .addComponent(tfRegistry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btConnect))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbStatus)
                 .addContainerGap())
@@ -135,27 +246,33 @@ public class GUI extends javax.swing.JFrame {
 
         tabPanel.getAccessibleContext().setAccessibleName("Connections");
 
-        pack();
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-583)/2, (screenSize.height-461)/2, 583, 461);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfRegistryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfRegistryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfRegistryActionPerformed
 
-    private void tfServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfServerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfServerActionPerformed
+    private void btConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConnectActionPerformed
 
+        if (!connected) {
+            connect();
+        } else {
+            disconnect();
+        }
+
+    }//GEN-LAST:event_btConnectActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btConnect;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList keyList;
+    private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbRegistry;
-    private javax.swing.JLabel lbServer;
     private javax.swing.JLabel lbStatus;
     private javax.swing.JPanel tabConn;
     private javax.swing.JTabbedPane tabPanel;
+    private javax.swing.JTextField tfName;
     private javax.swing.JTextField tfRegistry;
-    private javax.swing.JTextField tfServer;
     // End of variables declaration//GEN-END:variables
 }
