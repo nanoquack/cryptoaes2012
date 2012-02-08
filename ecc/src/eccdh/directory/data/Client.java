@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eccdh.registry.data;
+package eccdh.directory.data;
 
 import eccdh.adt.CurveConstants.EC_CURVES;
 import eccdh.adt.PublicKey;

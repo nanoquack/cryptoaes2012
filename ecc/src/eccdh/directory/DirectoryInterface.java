@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eccdh.registry;
+package eccdh.directory;
 
-import eccdh.registry.data.Client;
+import eccdh.directory.data.Client;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Alex
  */
-public interface RegistryInterface extends Remote {
+public interface DirectoryInterface extends Remote {
     /**
      * register a client with its public keys to the registry
      * 

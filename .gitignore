@@ -9,5 +9,4 @@ ecc/nbproject/
 Krypto/nbproject/
 ecc/build.xml
 ecc/manifest.mf
-
-/ecc/dist/
+ecc/dist/

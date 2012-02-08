@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eccdh.registry;
+package eccdh.directory;
 
-import eccdh.registry.data.Client;
+import eccdh.directory.data.Client;
 import java.rmi.RemoteException;
 import java.util.Hashtable;
 import java.util.List;
@@ -13,11 +13,13 @@ import java.util.List;
  *
  * @author Alex
  */
-public class Registry implements RegistryInterface {
+public class Directory implements DirectoryInterface {
 
+    public static final String SERVICE = "DHDirectory";
+    
     private Hashtable<String, Client> clientTable;
     
-    public Registry() {
+    public Directory() {
         clientTable = new Hashtable<String, Client>();
     }
     
