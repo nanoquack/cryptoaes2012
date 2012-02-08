@@ -4,9 +4,9 @@
  */
 package eccdh.algorithm.impl;
 
-import eccdh.adt.OctetString;
 import eccdh.algorithm.EncryptionException;
 import eccdh.algorithm.KeyDerivationFunction;
+import java.math.BigInteger;
 
 /**
  *
@@ -15,7 +15,7 @@ import eccdh.algorithm.KeyDerivationFunction;
 public class KeyDerivationFunctionImpl extends KeyDerivationFunction{
 
     @Override
-    public OctetString execute(OctetString z, int keydatalen, OctetString sharedInfo) throws EncryptionException{
+    public BigInteger execute(BigInteger z, int keydatalen, BigInteger sharedInfo) throws EncryptionException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

@@ -14,7 +14,7 @@ public class EllipticCurvePoint {
     public final BigInteger x;
     public final BigInteger y;
     
-    public EllipticCurvePoint(OctetString octet){
+    public EllipticCurvePoint(BigInteger octet){
         throw new UnsupportedOperationException("not yet implemented");
     }
     
@@ -22,13 +22,13 @@ public class EllipticCurvePoint {
         this.x = x;
         this.y = y;
     }
-    
-    public OctetString toOctetString(){
+
+    @Override
+    public String toString(){
         throw new UnsupportedOperationException("not yet implemented");
     }
     
-    @Override
-    public String toString(){
+    public BigInteger toOctet(){
         throw new UnsupportedOperationException("not yet implemented");
     }
     
