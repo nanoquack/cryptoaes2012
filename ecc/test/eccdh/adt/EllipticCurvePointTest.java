@@ -46,4 +46,52 @@ public class EllipticCurvePointTest {
             assertEquals("Conversion " + (i + 1) + " not correct", ec, ecpoint);
         }
     }
+
+    @Test
+    public void testPointAddition() {
+        EllipticCurvePoint[] firstPoint = {
+            new EllipticCurvePoint(new BigInteger("10"), new BigInteger("10"))
+        };
+        EllipticCurvePoint[] secondPoint = {
+            new EllipticCurvePoint(new BigInteger("5"), new BigInteger("5"))
+        };
+        EllipticCurvePoint[] expectedPoint = {
+            new EllipticCurvePoint(new BigInteger(""), new BigInteger(""))
+        };
+        for(int i=0;i<firstPoint.length;i++){
+            EllipticCurvePoint p1 = firstPoint[i];
+            EllipticCurvePoint p2 = secondPoint[i];
+            EllipticCurvePoint expected = expectedPoint[i];
+            EllipticCurvePoint result = p1.add(p2);
+            assertEquals("Point is not the expected one", expectedPoint, result);
+        }
+    }
+    
+    @Test
+    public void testPoindDoubling(){
+        //(x1,y1)+(x1,y2)=(x3,y3)
+        //x3=(lambda^2 - 2*x1) mod p
+        //y3=(lambda*(x1-x3)-y1) mod p
+        //lambda=(3*x1^2+a)/(2*y1)
+                EllipticCurvePoint[] firstPoint = {
+            new EllipticCurvePoint(new BigInteger("10"), new BigInteger("10"))
+        };
+        EllipticCurvePoint[] secondPoint = {
+            new EllipticCurvePoint(new BigInteger("5"), new BigInteger("5"))
+        };
+        EllipticCurvePoint[] expectedPoint = {
+            new EllipticCurvePoint(new BigInteger(""), new BigInteger(""))
+        };
+        for(int i=0;i<firstPoint.length;i++){
+            EllipticCurvePoint p1 = firstPoint[i];
+            EllipticCurvePoint p2 = secondPoint[i];
+            EllipticCurvePoint expected = expectedPoint[i];
+            EllipticCurvePoint result = p1.doub(CurveConstants.secp192k1_a, CurveConstants.secp192k1_p);
+            assertEquals("Point is not the expected one", expectedPoint, result);
+        }
+    }
+
+    @Test
+    public void testScalarMultiplication() {
+    }
 }

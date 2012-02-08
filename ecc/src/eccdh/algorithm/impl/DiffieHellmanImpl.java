@@ -4,32 +4,49 @@
  */
 package eccdh.algorithm.impl;
 
+import eccdh.adt.CurveConstants;
 import eccdh.adt.EllipticCurve;
 import eccdh.adt.PrivateKey;
 import eccdh.adt.PublicKey;
 import eccdh.algorithm.Configuration;
 import eccdh.algorithm.DiffieHellman;
 import eccdh.algorithm.EncryptionException;
+import java.math.BigInteger;
+import java.util.Random;
 
 /**
  *
  * @author rolf
  */
-public class DiffieHellmanImpl extends DiffieHellman{
+public class DiffieHellmanImpl extends DiffieHellman {
+
     protected PublicKey pubKey;
     protected PrivateKey prvKey;
 
-    public DiffieHellmanImpl(Configuration config){
+    public DiffieHellmanImpl(Configuration config) {
         super(config);
     }
-    
+
     @Override
     public PublicKey generateKeys() throws EncryptionException {
-        EllipticCurve curve = this.config.curve;
-        
-//        this.pubKey = new PublicKey();
-//        return pubKey;
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        //Randomly or pseudorandomly select an integer d in the interval [1;n-1]
+        //Calculate Q = dG
+        //Output (d;Q)
+        generatePrivateKey();
+        generatePublicKey();
+        return this.pubKey;
+    }
+
+    private void generatePrivateKey() {
+        BigInteger n = new BigInteger(curve.n.bitLength() - 1, new Random());
+        this.prvKey = new PrivateKey(n);
+    }
+    
+    private void generatePublicKey(){
+        if(this.prvKey!=null){
+            
+        }
     }
 
     @Override
@@ -56,5 +73,4 @@ public class DiffieHellmanImpl extends DiffieHellman{
     public Byte[] decrypt(Byte[] plainBytes) throws EncryptionException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
 }

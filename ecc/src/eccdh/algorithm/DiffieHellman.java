@@ -4,6 +4,7 @@
  */
 package eccdh.algorithm;
 
+import eccdh.adt.EllipticCurve;
 import eccdh.adt.PublicKey;
 
 /**
@@ -12,9 +13,11 @@ import eccdh.adt.PublicKey;
  */
 public abstract class DiffieHellman {
     protected final Configuration config;
+    protected final EllipticCurve curve;
 
     public DiffieHellman(Configuration config){
         this.config = config;
+        this.curve = config.curve;
     }
     
     public abstract PublicKey generateKeys() throws EncryptionException;
@@ -24,6 +27,7 @@ public abstract class DiffieHellman {
     public abstract Byte[] encrypt(Byte[] plainBytes) throws EncryptionException;
     public abstract Byte[] decrypt(Byte[] plainBytes) throws EncryptionException;
         //Data Types and Conversions: S 9
+        //Elliptic Curve Key Pair Generation Primitive: S 22
         //Key Agreement Schemes: S 45.
         //Key derivation function KDF: S 29
         //Hash Functions for Key derivation function: S 28
