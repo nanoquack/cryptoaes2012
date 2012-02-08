@@ -20,7 +20,7 @@ public class EllipticCurvePoint {
         value = value.substring(1, value.length());
         String xValue = value.substring(0, (int) (value.length() / 2));
         String yValue = value.substring((int) (value.length() / 2), value.length());
-        this.x = new BigInteger(xValue, 16);
+        this.x = new BigInteger(xValue, 16); 
         this.y = new BigInteger(yValue, 16);
     }
 
