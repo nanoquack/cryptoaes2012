@@ -6,6 +6,7 @@ package eccdh.registry;
 
 import eccdh.adt.EllipticCurveFactory.EC_CURVES;
 import eccdh.adt.PublicKey;
+import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -13,8 +14,9 @@ import java.util.List;
  *
  * @author Alex
  */
-public class Client {
+public class Client implements Serializable {
     private String name;
+        
     private Hashtable<EC_CURVES, PublicKey> keyTable;
     
     public Client(String name, EC_CURVES curve, PublicKey key) {

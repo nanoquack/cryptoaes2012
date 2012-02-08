@@ -23,21 +23,20 @@ public class Registry implements RegistryInterface {
     }
     
     @Override
-    public synchronized boolean registerPublicKey(PublicKey key, EC_CURVES curve, String name) throws RemoteException {
-        if (!clientTable.containsKey(name)) {
-            clientTable.put(name, new Client(name, curve, key));
+    public synchronized boolean registerClient(Client client) throws RemoteException {
+        if (!clientTable.containsKey(client.getName())) {
+            clientTable.put(client.getName(), client);
             return true;
-        } else {
-            Client client = clientTable.get(name);
-            return client.addKey(curve, key);
-        }
+        } 
+        
+        return false;
     }
 
     @Override
-    public synchronized boolean removePublicKey(String name, EC_CURVES curve) throws RemoteException {
+    public synchronized boolean removeClient(String name) throws RemoteException {
         if (clientTable.contains(name)) {
-            Client client = clientTable.get(name);
-            return client.removeKey(curve);
+            clientTable.remove(name);
+            return true;
         }
         
         return false;
@@ -49,22 +48,7 @@ public class Registry implements RegistryInterface {
     }
 
     @Override
-    public synchronized List<EC_CURVES> getCurves(String name) throws RemoteException {
-        if (clientTable.contains(name)) {
-            Client client = clientTable.get(name);
-            return client.getCurves();
-        }
-        
-        return null;
-    }
-
-    @Override
-    public synchronized PublicKey getKey(String name, EC_CURVES curve) throws RemoteException {
-        if (clientTable.contains(name)) {
-            Client client = clientTable.get(name);
-            return client.getKey(curve);
-        }
-        
-        return null;
+    public synchronized Client getClient(String name) throws RemoteException {
+        return clientTable.get(name);
     }
 }
