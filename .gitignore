@@ -10,3 +10,4 @@ Krypto/nbproject/
 ecc/build.xml
 ecc/manifest.mf
 
+/ecc/dist/

@@ -12,6 +12,10 @@ import java.math.BigInteger;
  */
 public class CurveConstants {
 
+    public enum EC_CURVES {
+
+        secp192k1
+    }
     public final static BigInteger secp192k1_p = new BigInteger("FFFFFFFF" + "FFFFFFFF" + "FFFFFFFF" + "FFFFFFFF" + "FFFFFFFE" + "FFFFEE37", 16);
     public final static BigInteger secp192k1_a = new BigInteger("00000000" + "00000000" + "00000000" + "00000000" + "00000000" + "00000000", 16);
     public final static BigInteger secp192k1_b = new BigInteger("00000000" + "00000000" + "00000000" + "00000000" + "00000000" + "00000003", 16);

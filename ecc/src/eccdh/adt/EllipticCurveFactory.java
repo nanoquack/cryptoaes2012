@@ -4,18 +4,13 @@
  */
 package eccdh.adt;
 
-import java.math.BigInteger;
+import eccdh.adt.CurveConstants.EC_CURVES;
 
 /**
  *
  * @author rolf
  */
 public class EllipticCurveFactory {
-
-    public enum EC_CURVES {
-
-        secp192k1
-    }
 
     public static EllipticCurve newInstance(EC_CURVES type) {
         EllipticCurve curve = null;

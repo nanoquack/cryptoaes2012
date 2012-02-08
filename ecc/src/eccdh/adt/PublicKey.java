@@ -18,4 +18,6 @@ public class PublicKey implements Serializable {
      * Punkt auf der elliptischen Kurve.
      */
     private EllipticCurvePoint q;
+    
+    private CurveConstants.EC_CURVES curveId;
 }
